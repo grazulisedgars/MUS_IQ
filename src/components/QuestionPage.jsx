@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 function QuestionPage() {
     return (
@@ -13,6 +14,12 @@ function QuestionPage() {
                 <button>Answer 3</button>
                 <button>Answer 4</button>
             </div>
+
+
+            <NavLink to="/stats">
+                <button>Results</button>
+            </NavLink>
+
             <p>1 of 10</p>
         </>
     )

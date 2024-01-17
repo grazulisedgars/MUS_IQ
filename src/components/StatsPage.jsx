@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 function StatsPage() {
     return (
@@ -10,7 +11,9 @@ function StatsPage() {
                 <p>Your best score 80%</p>
                 <p>So far you've answered 24 questions correctly!</p>
             </div>
-            <button>Play Again</button>
+            <NavLink to="/">
+                <button>Play Again</button>
+            </NavLink>
         </>
     )
 }
