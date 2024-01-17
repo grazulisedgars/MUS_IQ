@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 
 function WelcomePage() {
@@ -21,7 +22,10 @@ function WelcomePage() {
           <button>Hard</button>
         </ul>
       </div>
-      <button>Start Quiz</button>
+
+      <NavLink to="/questions">
+        <button>Start Quiz</button>
+      </NavLink>
     </>
   )
 }
