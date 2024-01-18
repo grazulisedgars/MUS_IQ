@@ -1,21 +1,41 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { getTriviaQuestions } from "../utils/API";
+import { NavLink, useNavigate } from "react-router-dom";
+import request from "superagent"
+
 
 
 function WelcomePage() {
-const [amount, setAmount] = useState(10);
-const [difficulty, setDifficulty] = useState('medium');
+  const navigate = useNavigate();
 
-const startQuiz = async () => {
-  try {
-    const apiUrl = `https://opentdb.com/api.php?amount=${amount}&category=12&difficulty=${difficulty}`;
-    const questions = await getTriviaQuestions(amount, difficulty);
-    console.log("Fetched questions", questions, apiUrl);
-  } catch (error) {
-    console.error("Error starting quiz:", error);
-  }
-};
+  // State for the number of questions and difficulty level
+  const [amount, setAmount] = useState(10);
+  const [difficulty, setDifficulty] = useState('medium');
+  const [questions, setQuestions] = useState(null); // New state to store API response
+
+  // Function triggered when "Start Quiz" button is clicked
+  const startQuiz = async () => {
+    try {
+      // Constructing the API URL based on selected amount and difficulty
+      const apiUrl = `https://opentdb.com/api.php?amount=${amount}&category=12&difficulty=${difficulty}`;
+      const response = await request.get(apiUrl);
+      const data = response.body.results;
+
+      // Save API response in state
+      setQuestions(data);
+
+      // Navigate to the QuestionPage and pass state
+      navigate('/questions', { state: { amount, difficulty, questions: data } });
+
+      // Logging information to the console
+      console.log("Starting quiz with amount:", amount, "and difficulty:", difficulty);
+      console.log("API URL:", apiUrl);
+      console.log("Questions:", questions)
+    } catch (error) {
+
+      // Handling errors during the quiz start process`
+      console.error("Error starting quiz:", error);
+    }
+  };
 
   return (
     <>
@@ -37,7 +57,7 @@ const startQuiz = async () => {
         </ul>
       </div>
 
-      <NavLink to="/questions">
+      <NavLink to={{ pathname: "/questions", state: { amount, difficulty } }}>
         <button onClick={startQuiz}>Start Quiz</button>
       </NavLink>
     </>
