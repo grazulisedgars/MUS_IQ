@@ -1,5 +1,6 @@
 import request from 'superagent';
 
+
 const API_BASE_URL = 'https://opentdb.com/api.php'
 
 export const getTriviaQuestions = async (amount, difficulty) => {
@@ -18,4 +19,6 @@ export const getTriviaQuestions = async (amount, difficulty) => {
     throw error;
   }
 };
+
+
 

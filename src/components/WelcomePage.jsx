@@ -29,7 +29,6 @@ function WelcomePage() {
       // Logging information to the console
       console.log("Starting quiz with amount:", amount, "and difficulty:", difficulty);
       console.log("API URL:", apiUrl);
-      console.log("Questions:", questions)
     } catch (error) {
 
       // Handling errors during the quiz start process`

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import StatsHeader from "./StatsHeader";
 
+
+
+
 function StatsPage() {
     // Assumere totalQuestions and correctAnswers are obtained from the quiz
     const totalQuestions = state.questions.length;
