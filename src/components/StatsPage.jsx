@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import StatsHeader from "./StatsHeader";
 
 function StatsPage() {
+    // Assumere totalQuestions and correctAnswers are obtained from the quiz
+    const totalQuestions = state.questions.length;
+    const correctAnswers = 5;
     return (
         <>
-            <h1>Congratulations!</h1>
+            <StatsHeader totalQuestions={totalQuestions} correctAnswers={correctAnswers}/>
             <div>
                 <h2>4/5 correct     80%</h2>
                 <p>Last time you scored 66%</p>
