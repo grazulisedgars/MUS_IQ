@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useLocation, useNavigate} from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import request from "superagent";
+
 
 function QuestionPage() {
     // Get the state from the location (passed from the WelcomePage component)
     const { state: locationState } = useLocation();
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     // console.log("🚀 ~ QuestionPage ~ state :", locationState);
 
@@ -53,11 +54,8 @@ function QuestionPage() {
             }));
             console.log("User Answers:", state.userAnswers);
         } else {
-            console.log("Redirect to results page");
             // Redirect to stats page using navigate
             navigate("/stats");
-            // Implement logic for redirecting to the results page
-            // Move to stats page
         }
     };
 
@@ -77,14 +75,23 @@ function QuestionPage() {
                     data = response.body.results;
                 }
 
+                // Use dangerouslySetInnerHTML to render HTML entities
+                const decodedData = data.map((question) => ({
+                    ...question,
+                    question: question.question,
+                    incorrect_answers: question.incorrect_answers.map((answer) => answer),
+                    correct_answer: question.correct_answer,
+                }));
+
+
                 // Set questions, current question, and shuffled answers based on API response or initialQuestions
                 setState((prev) => ({
                     ...prev,
-                    questions: data,
-                    currentQuestion: data[0],
+                    questions: decodedData,
+                    currentQuestion: decodedData[0],
                     shuffledAnswers: shuffleAnswers(
-                        data[0].correct_answer,
-                        data[0].incorrect_answers
+                        decodedData[0].correct_answer,
+                        decodedData[0].incorrect_answers
                     ),
                 }));
             } catch (error) {
@@ -104,19 +111,20 @@ function QuestionPage() {
         <>
             <div>
                 <h3>Question:</h3>
-                <p>{state.currentQuestion.question}</p>
+                {/* Presents question nicely without ugly representation of ' " */}
+                <p dangerouslySetInnerHTML={{ __html: state.currentQuestion.question }}></p>
             </div>
             <div>
+                {/* Presents answers nicely without ugly representation of ' " */}
                 {state.shuffledAnswers.map((answer, index) => (
-                    <button key={index} onClick={() => handleAnswerClick(answer)}>
-                        {answer}
-                    </button>
+                    <button key={index} onClick={() => handleAnswerClick(answer)} dangerouslySetInnerHTML={{ __html: answer }}></button>
+
                 ))}
             </div>
-            <button onClick={handleNextQuestion}>Next Question</button>
-            {/* <NavLink to="/stats">
-                <button>Results</button>
-            </NavLink> */}
+            <button onClick={handleNextQuestion}>
+                {/* When last question is reached Next Question button becomes Submit button */}
+                {state.questionIndex + 1 < state.questions.length ? "Next Question" : "Submit"}
+            </button>
             <p>{state.questionIndex + 1} of {state.questions.length}</p>
         </>
     );
