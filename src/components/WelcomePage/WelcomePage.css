@@ -1,0 +1,184 @@
+/* Overall WelcomePage button colours */
+
+/* Start button */
+button.btn.btn-s {
+    border: #9e28c5 solid 2px;
+}
+
+/* Question and Difficulty buttons */
+button.btn.btn-q,
+button.btn.btn-d {
+    border: #9e28c5 solid 2px ;
+
+}
+
+/* Hover state */
+button.btn.btn-q:hover,
+button.btn.btn-d:hover,
+button.btn.btn-s:hover {
+    background: linear-gradient(#048feb, #9e28c5);
+    color: white;
+    border: #9e28c5 solid 2px;
+    opacity: 75%;
+}
+
+/* Active/Clicked state */
+button.btn.active {
+    background: linear-gradient(#048feb, #9e28c5);
+    color: white;
+    border: #9e28c5 solid 2px;
+}
+
+/* ------------------------------------------------------------ */
+
+/* Mobile view design */
+@media (min-width: 320px) and (max-width: 425px) {
+
+body {
+    zoom: 0.7;
+}
+
+/* Image stats */
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5vw;
+    width: 75%;
+}
+
+.header {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 2em;
+    padding-bottom: 40px;
+}
+
+div {
+    padding-top: 10vw;
+    padding-bottom: 10vw;
+}
+
+/* Option button stats */
+dl,
+ol,
+ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* Question and Difficulty buttons */
+button.btn.btn-q,
+button.btn.btn-d {
+    font-size: 1.75em;
+}
+
+/* Question button padding */
+button.btn.btn-q {
+    padding-left: 7vw;
+    padding-right: 7vw;
+}
+
+/* Start button */
+button.btn.btn-s {
+    font-size: 1em;
+}
+
+.questions,
+.difficulty {
+    padding-left: 0px;
+    padding-top: 5vw;
+}
+
+/* Start Quiz button */
+a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5vw;
+    padding-bottom: 5vw;
+    font-size: 30px;
+    text-decoration: none !important;
+    
+}
+}
+/* ---------------------------------------------------------- */
+
+/* Tablet view design */
+@media (min-width: 768px) {
+
+body {
+   zoom: 0.75;
+}
+    /* Image stats */
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    height: auto; 
+
+}
+
+.container1 {
+    width: 50%;
+    float:left;
+}
+
+.container2 {
+    width: 50%;
+    float: right;
+}
+
+.header {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 2em;
+    padding-bottom: 40px;
+}
+
+/* Option button stats */
+dl,
+ol,
+ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+/* Question and Difficulty buttons */
+button.btn.btn-q,
+button.btn.btn-d {
+    font-size: 1.4em;
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
+}
+
+/* Start button font size*/
+button.btn.btn-s {
+    font-size: 1.75em;
+    padding-left: 10vw !important;
+    padding-right: 10vw !important; 
+    margin-bottom: 2vh;
+    
+}
+
+.questions,
+.difficulty {
+    padding-left: 4vw; 
+    padding-right: 4vw;
+}
+
+/* Start Quiz button */
+a {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    text-decoration: none !important;
+}
+
+}
