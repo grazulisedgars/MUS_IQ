@@ -73,7 +73,7 @@ function QuestionPage() {
             console.log("User Answers:", state.userAnswers);
         } else {
             // Redirect to stats page using navigate
-            navigate("/stats");
+            navigate("/stats", {state: { userAnswers: state.userAnswers, questions: state.questions }});
         }
     };
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import StatsHeader from "./StatsHeader";
+// import StatsHeader from "./StatsHeader";
 
 
 
@@ -8,23 +8,71 @@ import StatsHeader from "./StatsHeader";
 function StatsPage() {
     // Get the state from the location (passed from the QuestionPage component)
     const { state: locationState } = useLocation();
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     console.log("🚀 ~ StatsPage ~ state :", locationState);
 
-    // Assumere totalQuestions and correctAnswers are obtained from the quiz
-    const totalQuestions = state.questions.length;
-    const correctAnswers = 5;
+    // Assume totalQuestions and correctAnswers are obtained from the quiz
+    const { userAnswers, questions } = locationState;
+    const totalQuestions = questions.length;
+    console.log(totalQuestions);
+
+    // Identify incorrectly answered questions
+    const correctlyAnswered = userAnswers.filter(answer => !answer.isCorrect);
+
+    // Function to calculate user's percentage correct
+    const calculatePercentage = (correct, total) => {
+        return ((correct / total) * 100).toFixed(2);
+    };
+
+    // Function to display header based on quiz percentage
+    const getHeaderMessage = (percentage) => {
+        if (percentage >= 80) {
+            return "Congratulations! You know some stuff!";
+        } else if (percentage >= 50) {
+            return 'Great job! Your glass is at least half full...';
+        } else {
+            return "Keep practicing! All the greats started somewhere...";
+        }
+    };
+
+    const percentage = calculatePercentage(correctlyAnswered.length, totalQuestions);
+    console.log(percentage);
+
+     // Calculate formatted percentage with two decimal places
+     const formattedPercentage = parseFloat(percentage).toFixed(0);
+
+     // Helper function to handle HTML entities
+     const renderHTML = (html) => {
+        return { __html: html };
+    };
+
     return (
         <>
-            <StatsHeader totalQuestions={totalQuestions} correctAnswers={correctAnswers}/>
+            <h1>{getHeaderMessage(percentage)}</h1>
             <div>
-                <h2>4/5 correct     80%</h2>
-                <p>Last time you scored 66%</p>
-                <p>Your best score 80%</p>
-                <p>So far you've answered 24 questions correctly!</p>
+                {/* Display stats for correctly answered questions */}
+                <h2>{correctlyAnswered.length}/{questions.length} correct     {formattedPercentage}%</h2>
+                <p>Your best score: {((correctlyAnswered.length / questions.length) * 100).toFixed(2)}%</p>
+
+                {/* Display details for incorrectly answered questions */}
+                {correctlyAnswered.length > 0 && (
+                    <>
+                        <h3>Review and Learn:</h3>
+                        <ul>
+                            {correctlyAnswered.map((answer, index) => (
+                                <li key={index}>
+                                    <p dangerouslySetInnerHTML={renderHTML(`Question: ${answer.question}`)}></p>
+                                    <p dangerouslySetInnerHTML={renderHTML(`Your Answer: ${answer.answer}`)}></p>
+                                    <p dangerouslySetInnerHTML={renderHTML(`Correct Answer: ${questions[index].correct_answer}`)}></p>
+                                </li>
+                            ))}
+                        </ul>
+                    </>
+                )}
+
             </div>
-            <button onClick={handleClearStats}>Clear Stats</button>
+            <button>Clear Stats</button>
             <NavLink to="/">
                 <button>Play Again</button>
             </NavLink>
