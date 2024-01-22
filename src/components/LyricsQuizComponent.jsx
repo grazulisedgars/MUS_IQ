@@ -1,12 +1,23 @@
 import { useEffect ,useState } from "react";
 
-
-
+let songs = [
+  ["Eminem","lose yourself"], //keep
+  ["Franz Ferdinand","Take Me Out"],
+  ["The Killers","Mr. Brightside"],
+  ["David Bowie","Life on Mars"],
+  ["Nirvana","Smells Like Teen Spirit"],
+  ["Smashing Pumpkins", "1979"],
+  ["Smashing Pumpkins", "Today"],
+  ["Stone Temple Pilots","Creep"],
+  ["Talking Heads","Psycho Killer"],
+  ["Talking Heads","Once in a Lifetime"],
+  ["Frank Zapppa","Don't Eat the Yellow Snow"],
+  ["Frank Zappa", "Joes Garage"],
+]// console.log("Songs:", songs.length);
 
 function getFirstSentence(inputString) {
   // Use a regular expression to match the first sentence
   var match = inputString.match(/[^.!?]*[.!?]/);
-  
   // Check if there is a match
   if (match) {
     // Return the matched first sentence
@@ -24,25 +35,54 @@ function removeOffset(str) {
   return cleanResponse;
 }
 
+function spitLines(str) {
+  const linesArray = str.split('\n');
+  // const line = linesArray[1] + '\n' + linesArray[2] + '\n'+linesArray[3] + '\n'+linesArray[4];
+  // const line2 = linesArray.slice(2, 5);
+
+  return [linesArray[1], linesArray[2], linesArray[3] , linesArray[4], linesArray[5], linesArray[6]];
+
+}
 
 
+function getRandInt() {
+  // get random number between 0 and songs.length
 
+  let randInt = Math.floor(Math.random() * songs.length);
+  return randInt;
+}
+
+console.log("Random number:", getRandInt());
 
 function LyricsQuizComponent() {
+  let index = getRandInt();
+  let artist = songs[index][0];
+  let title = songs[index][1];
 
-    let artist = "Eminem";
-    let title = "Lose Yourself";
-  const [lyrics, setLyrics] = useState("");
+  let artistUrl = encodeURIComponent(artist);
+  let titleUrl = encodeURIComponent(title);
+  console.log(artistUrl);
+  console.log(titleUrl);
+ 
+const [lines, setLines] = useState([]);
+
 useEffect(() => {
   const fetchLyrics = async () => {
     try {
-      const response = await fetch("https://api.lyrics.ovh/v1/" + artist + "/" + title);
+      console.log("Artist:", artist);
+      // console.log("Title:", title);
+      const response = await fetch(
+        "https://api.lyrics.ovh/v1/" + artistUrl + "/" + titleUrl
+      );
+      console.log("Response:", response);
       const data = await response.json();
-      setLyrics(data.lyrics);
-      console.log("Lyrics:", data);
+
       let apiResult = getFirstSentence(data.lyrics);
       let cleanText = removeOffset(apiResult);
-      setLyrics(cleanText);
+
+      // Update state with lines array
+      setLines(spitLines(cleanText));
+
       console.log("Lyrics:", cleanText);
     } catch (error) {
       console.error("Error fetching lyrics:", error);
@@ -50,14 +90,17 @@ useEffect(() => {
   };
 
   fetchLyrics();
+
 }, []);
+return (
+  <div>
+    <h3>Lyrics:</h3>
+    {lines.map((line, index) => (
+      <p key={index}>{line}</p>
+    ))}
 
-    return (
-      <div>
-        <h3>Lyrics:</h3>
-        <p>{lyrics}</p>
-      </div>
-    );
-
+  </div>
+);
 }
+
 export default LyricsQuizComponent;
