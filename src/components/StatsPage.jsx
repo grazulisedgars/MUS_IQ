@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 // import StatsHeader from "./StatsHeader";
 
-
-
-
 function StatsPage() {
     // Get the state from the location (passed from the QuestionPage component)
     const { state: locationState } = useLocation();
@@ -12,13 +9,25 @@ function StatsPage() {
 
     console.log("🚀 ~ StatsPage ~ state :", locationState);
 
-    // Assume totalQuestions and correctAnswers are obtained from the quiz
-    const { userAnswers, questions } = locationState;
+    // Retrieve accumulated user answers from the route
+    const { userAnswers: accumulatedUserAnswers, questions } = locationState;
+
+    // Accumulate the user answers from previous rounds
+    const previousUserAnswers = JSON.parse(localStorage.getItem("userAnswers")) || [];
+    const allUserAnswers = [...previousUserAnswers, ...accumulatedUserAnswers];
+
     const totalQuestions = questions.length;
-    console.log(totalQuestions);
 
     // Identify incorrectly answered questions
-    const correctlyAnswered = userAnswers.filter(answer => !answer.isCorrect);
+    const incorrectlyAnswered = accumulatedUserAnswers.filter(answer => !answer.isCorrect);
+    const correctlyAnswered = accumulatedUserAnswers.filter(answer => answer.isCorrect);
+    console.log(correctlyAnswered);
+
+    // Function to get correct answer for a given question index
+    const getCorrectAnswer = (questionIndex) => {
+        return questions[questionIndex].correct_answer;
+    };
+
 
     // Function to calculate user's percentage correct
     const calculatePercentage = (correct, total) => {
@@ -39,11 +48,11 @@ function StatsPage() {
     const percentage = calculatePercentage(correctlyAnswered.length, totalQuestions);
     console.log(percentage);
 
-     // Calculate formatted percentage with two decimal places
-     const formattedPercentage = parseFloat(percentage).toFixed(0);
+    // Calculate formatted percentage with two decimal places
+    const formattedPercentage = parseFloat(percentage).toFixed(0);
 
-     // Helper function to handle HTML entities
-     const renderHTML = (html) => {
+    // Helper function to handle HTML entities
+    const renderHTML = (html) => {
         return { __html: html };
     };
 
@@ -56,15 +65,15 @@ function StatsPage() {
                 <p>Your best score: {((correctlyAnswered.length / questions.length) * 100).toFixed(2)}%</p>
 
                 {/* Display details for incorrectly answered questions */}
-                {correctlyAnswered.length > 0 && (
+                {incorrectlyAnswered.length > 0 && (
                     <>
                         <h3>Review and Learn:</h3>
                         <ul>
-                            {correctlyAnswered.map((answer, index) => (
+                            {incorrectlyAnswered.map((answer, index) => (
                                 <li key={index}>
                                     <p dangerouslySetInnerHTML={renderHTML(`Question: ${answer.question}`)}></p>
                                     <p dangerouslySetInnerHTML={renderHTML(`Your Answer: ${answer.answer}`)}></p>
-                                    <p dangerouslySetInnerHTML={renderHTML(`Correct Answer: ${questions[index].correct_answer}`)}></p>
+                                    <p dangerouslySetInnerHTML={renderHTML(`Correct Answer: ${getCorrectAnswer(index)}`)}></p>
                                 </li>
                             ))}
                         </ul>
@@ -77,7 +86,7 @@ function StatsPage() {
                 <button>Play Again</button>
             </NavLink>
         </>
-    )
+    );
 }
 
 export default StatsPage;
