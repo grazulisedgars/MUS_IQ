@@ -1,0 +1,214 @@
+/* * Overall button colours */
+.btn-light {
+    border: #9e28c5 solid 2px !important;
+}
+
+.btn-light:hover {
+    color: white !important;
+    opacity: 75%;
+    background: linear-gradient(#048feb, #9e28c5);
+}
+
+/* -------------------------------------------------------- */
+/* Mobile view */
+@media (min-width: 320px) and (max-width: 425px) {
+
+    .header-message {
+        text-align: center;
+        padding-top: 15vh;
+        padding-left: 7vw;
+        padding-right: 7vw;
+        font-size: 2em;
+    }
+
+    .correct-answers-div {
+        padding-left: 20vw;
+        padding-right: 20vw;
+    }
+
+    .correct-answers {
+        text-align: center;
+        border-radius: 5px;
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+        color: white !important;
+        opacity: 75%;
+        background: linear-gradient(#048feb, #9e28c5);
+    }
+
+    .corrections {
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+        border: #9e28c5 solid 2px !important;
+        border-radius: 5px;
+        margin-bottom: 5vh;
+    }
+
+    .corrections p {
+        padding-left: 5vw;
+        padding-right: 5vw;
+        font-size: 1.2em;
+    }
+
+    .stats-div {
+        padding-left: 15vw;
+        padding-right: 15vw;
+        padding-bottom: 0vh !important;
+    }
+
+    .stats-h3 {
+        text-align: center;
+        margin-bottom: 5vh;
+    }
+
+    .your-answer-p {
+        color: red;
+    }
+
+    .correct-answer-p {
+        color: green;
+    }
+
+    button.btn.btn-light.play-again {
+        font-size: 0.6em;
+
+    }
+}
+
+/* -------------------------------------------------------- */
+/* Tablet view */
+
+@media (min-width: 426px) and (max-width: 768px) {
+    .header-message {
+        text-align: center;
+        padding-top: 15vh;
+        padding-left: 7vw;
+        padding-right: 7vw;
+        font-size: 2em;
+    }
+
+    .correct-answers-div {
+        padding-left: 20vw;
+        padding-right: 20vw;
+        padding-top: 10vh;
+        padding-bottom: 5vh;
+    }
+
+    .correct-answers {
+        text-align: center;
+        border-radius: 5px;
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+        color: white !important;
+        opacity: 75%;
+        background: linear-gradient(#048feb, #9e28c5);
+    }
+
+    .corrections {
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+        border: #9e28c5 solid 2px !important;
+        border-radius: 5px;
+        margin-bottom: 5vh;
+    }
+
+    .corrections p {
+        padding-left: 5vw;
+        padding-right: 5vw;
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    .stats-div {
+        padding-left: 15vw;
+        padding-right: 15vw;
+        padding-bottom: 0vh !important;
+    }
+
+    .stats-h3 {
+        text-align: center;
+        margin-bottom: 5vh;
+    }
+
+    .your-answer-p {
+        color: red;
+    }
+
+    .correct-answer-p {
+        color: green;
+    }
+
+    button.btn.btn-light.play-again {
+        font-size: 1.3em;
+
+    }
+}
+
+/* -------------------------------------------------------- */
+/* Laptop view */
+
+@media (min-width: 769px) and (max-width: 2560px) {
+    .header-message {
+        text-align: center;
+        padding-top: 15vh;
+        padding-left: 7vw;
+        padding-right: 7vw;
+        font-size: 2em;
+    }
+
+    .correct-answers-div {
+        padding-left: 25vw;
+        padding-right: 25vw;
+        padding-top: 10vh;
+        padding-bottom: 5vh;
+    }
+
+    .correct-answers {
+        text-align: center;
+        border-radius: 5px;
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+        color: white !important;
+        opacity: 75%;
+        background: linear-gradient(#048feb, #9e28c5);
+    }
+
+    .corrections {
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+        border: #9e28c5 solid 2px !important;
+        border-radius: 5px;
+        margin-bottom: 5vh;
+    }
+
+    .corrections p {
+        padding-left: 5vw;
+        padding-right: 5vw;
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    .stats-div {
+        padding-left: 30vw;
+        padding-right: 30vw;
+        padding-bottom: 0vh !important;
+    }
+
+    .stats-h3 {
+        text-align: center;
+        margin-bottom: 5vh;
+    }
+
+    .your-answer-p {
+        color: red;
+    }
+
+    .correct-answer-p {
+        color: green;
+    }
+
+    button.btn.btn-light.play-again {
+        font-size: 1.3em;
+
+    }
+}

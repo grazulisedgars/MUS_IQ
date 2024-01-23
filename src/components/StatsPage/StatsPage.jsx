@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import "../StatsPage/StatsPage.css"
 // import StatsHeader from "./StatsHeader";
 
 function StatsPage() {
@@ -58,32 +59,31 @@ function StatsPage() {
 
     return (
         <>
-            <h1>{getHeaderMessage(percentage)}</h1>
-            <div>
+            <h1 className="header-message">{getHeaderMessage(percentage)}</h1>
+            <div className="correct-answers-div">
                 {/* Display stats for correctly answered questions */}
-                <h2>{correctlyAnswered.length}/{questions.length} correct     {formattedPercentage}%</h2>
-                <p>Your best score: {((correctlyAnswered.length / questions.length) * 100).toFixed(2)}%</p>
-
+                <h2 className="correct-answers">{correctlyAnswered.length + '/' + questions.length + ' correct '} <br /> <br />{ formattedPercentage + '%'}</h2>
+            </div>
+            <div className="stats-div">
                 {/* Display details for incorrectly answered questions */}
                 {incorrectlyAnswered.length > 0 && (
                     <>
-                        <h3>Review and Learn:</h3>
-                        <ul>
+                        <h3 className="stats-h3">Review and Learn:</h3>
                             {incorrectlyAnswered.map((answer, index) => (
-                                <li key={index}>
+                                <div className="corrections" key={index}>
                                     <p dangerouslySetInnerHTML={renderHTML(`Question: ${answer.question}`)}></p>
-                                    <p dangerouslySetInnerHTML={renderHTML(`Your Answer: ${answer.answer}`)}></p>
-                                    <p dangerouslySetInnerHTML={renderHTML(`Correct Answer: ${getCorrectAnswer(index)}`)}></p>
-                                </li>
+                                    <p dangerouslySetInnerHTML={renderHTML(`Your Answer: ${answer.answer}`)}
+                                    className="your-answer-p"></p>
+                                    <p dangerouslySetInnerHTML={renderHTML(`Correct Answer: ${getCorrectAnswer(index)}`)}
+                                    className="correct-answer-p"></p>
+                                </div>
                             ))}
-                        </ul>
                     </>
                 )}
 
             </div>
-            <button>Clear Stats</button>
             <NavLink to="/">
-                <button>Play Again</button>
+                <button className="btn btn-light play-again">Play Again</button>
             </NavLink>
         </>
     );

@@ -138,9 +138,9 @@ function QuestionPage() {
     return (
         <>
             <div className="question-container">
-                <h3>Question</h3>
+                {/* <h3>Question</h3> */}
                 {/* Presents question nicely without ugly representation of ' " */}
-                <p dangerouslySetInnerHTML={{ __html: state.currentQuestion.question }}></p>
+                <h3 dangerouslySetInnerHTML={{ __html: state.currentQuestion.question }}></h3>
             </div>
             <div className="answer-container">
                 {/* Presents answers nicely without ugly representation of ' " */}
