@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import WelcomePage from './components/WelcomePage/WelcomePage';
-import QuestionPage from './components/QuestionPage';
+import QuestionPage from './components/QuestionPage/QuestionPage';
 import StatsPage from './components/StatsPage';
 
 function App() {
@@ -9,9 +9,9 @@ function App() {
     <>
       <Router>
         <Routes>
-        <Route path="/" element={<WelcomePage/>} />
-        <Route path="/questions" element={<QuestionPage/>} />
-        <Route path="/stats" element={<StatsPage/>} />
+          <Route path="/" element={<WelcomePage />} />
+          <Route path="/questions" element={<QuestionPage />} />
+          <Route path="/stats" element={<StatsPage />} />
         </Routes>
       </Router>
     </>

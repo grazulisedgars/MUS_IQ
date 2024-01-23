@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import request from "superagent";
+import "../QuestionPage/QuestionPage.css"
 
 
 function QuestionPage() {
@@ -136,12 +137,12 @@ function QuestionPage() {
 
     return (
         <>
-            <div>
-                <h3>Question:</h3>
+            <div className="question-container">
+                <h3>Question</h3>
                 {/* Presents question nicely without ugly representation of ' " */}
                 <p dangerouslySetInnerHTML={{ __html: state.currentQuestion.question }}></p>
             </div>
-            <div>
+            <div className="answer-container">
                 {/* Presents answers nicely without ugly representation of ' " */}
                 {state.shuffledAnswers.map((answer, index) => (
                     <button
@@ -164,11 +165,14 @@ function QuestionPage() {
 
 
             </div>
-            <button onClick={handleNextQuestion}>
+            <div className="next-question">
+            <button className="btn btn-light"
+                    onClick={handleNextQuestion}>
                 {/* When last question is reached Next Question button becomes Submit button */}
                 {state.questionIndex + 1 < state.questions.length ? "Next Question" : "Submit"}
             </button>
-            <p>{state.questionIndex + 1} of {state.questions.length}</p>
+            </div>
+            <p className="question-counter">{state.questionIndex + 1} of {state.questions.length}</p>
         </>
     );
 }
