@@ -42,6 +42,7 @@ function QuestionPage() {
             console.log("Is correct", isCorrect)
         } else {
             console.log("Is incorrect")
+            console.log("Correct answer:", state.currentQuestion.correct_answer);
         }
 
         setState((prev) => ({
@@ -52,6 +53,7 @@ function QuestionPage() {
                 answer: selectedAnswer,
                 isCorrect,
                 answerClicked: true,
+                correctAnswer: state.currentQuestion.correct_answer,
             }],
         }));
         // Handle selected answer logic here...
@@ -60,6 +62,7 @@ function QuestionPage() {
     // Function to move to the next question
     const handleNextQuestion = () => {
         const nextIndex = state.questionIndex + 1;
+        const accumulatedUserAnswers = [...state.userAnswers];
         if (nextIndex < state.questions.length) {
             setState((prev) => ({
                 ...prev,
@@ -73,8 +76,13 @@ function QuestionPage() {
             }));
             console.log("User Answers:", state.userAnswers);
         } else {
-            // Redirect to stats page using navigate
-            navigate("/stats");
+            // // Pass accumulated user answers and questions to the next route
+            navigate("/stats", { 
+                state: {
+                userAnswers: accumulatedUserAnswers,
+                questions: state.questions, // Include questions in the route state
+            }, 
+        });
         }
     };
 
