@@ -13,9 +13,13 @@
 /* Mobile view */
 @media (min-width: 320px) and (max-width: 425px) {
 
+    img {
+        margin-top: 2vh;
+    }
+
     .header-message {
         text-align: center;
-        padding-top: 15vh;
+        padding-top: 3vh;
         padding-left: 7vw;
         padding-right: 7vw;
         font-size: 2em;
@@ -79,9 +83,13 @@
 /* Tablet view */
 
 @media (min-width: 426px) and (max-width: 768px) {
+    img {
+        margin-top: 5vh;
+    }
+
     .header-message {
         text-align: center;
-        padding-top: 15vh;
+        padding-top: 5vh;
         padding-left: 7vw;
         padding-right: 7vw;
         font-size: 2em;
@@ -90,7 +98,7 @@
     .correct-answers-div {
         padding-left: 20vw;
         padding-right: 20vw;
-        padding-top: 10vh;
+        padding-top: 5vh;
         padding-bottom: 5vh;
     }
 
@@ -140,6 +148,7 @@
 
     button.btn.btn-light.play-again {
         font-size: 1.3em;
+        margin-bottom: 5vh;
 
     }
 }
@@ -148,9 +157,13 @@
 /* Laptop view */
 
 @media (min-width: 769px) and (max-width: 2560px) {
+    img {
+        margin-top: 5vh;
+    }
+
     .header-message {
         text-align: center;
-        padding-top: 15vh;
+        padding-top: 5vh;
         padding-left: 7vw;
         padding-right: 7vw;
         font-size: 2em;
@@ -159,7 +172,7 @@
     .correct-answers-div {
         padding-left: 25vw;
         padding-right: 25vw;
-        padding-top: 10vh;
+        padding-top: 5vh;
         padding-bottom: 5vh;
     }
 
@@ -209,6 +222,7 @@
 
     button.btn.btn-light.play-again {
         font-size: 1.3em;
+        margin-bottom: 5vh;
 
     }
 }

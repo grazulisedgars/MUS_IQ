@@ -20,5 +20,24 @@ export const getTriviaQuestions = async (amount, difficulty) => {
   }
 };
 
+const API_BASE_URL_2 = 'https://api.giphy.com/v1/gifs'
+export const getGiphy = async (answer) => {
+  try {
+    const response = await request
+      .get(API_BASE_URL_2)
+      .query({
+        q: answer,
+        limit: 1,
+        rating: pg,
+        lang: eng,
+      });
+
+    return response.body.results;
+  } catch (error) {
+    console.error('Error fetching gif:', error);
+    throw error;
+  }
+};
+
 
 
