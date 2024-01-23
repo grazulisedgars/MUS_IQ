@@ -11,10 +11,11 @@ function StatsPage() {
 
     // Retrieve accumulated user answers from the route
     const { userAnswers: accumulatedUserAnswers, questions } = locationState;
+    console.log("questions:", questions);
 
     // Accumulate the user answers from previous rounds
-    const previousUserAnswers = JSON.parse(localStorage.getItem("userAnswers")) || [];
-    const allUserAnswers = [...previousUserAnswers, ...accumulatedUserAnswers];
+    // const previousUserAnswers = JSON.parse(localStorage.getItem("userAnswers")) || [];
+    // const userAnswers = [...previousUserAnswers, ...accumulatedUserAnswers];
 
     const totalQuestions = questions.length;
 
@@ -25,10 +26,9 @@ function StatsPage() {
 
     // Function to get correct answer for a given question index
     const getCorrectAnswer = (questionIndex) => {
-        return questions[questionIndex].correct_answer;
+        return incorrectlyAnswered[questionIndex].correctAnswer;
     };
-
-
+    
     // Function to calculate user's percentage correct
     const calculatePercentage = (correct, total) => {
         return ((correct / total) * 100).toFixed(2);
