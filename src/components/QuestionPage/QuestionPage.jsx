@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import request from "superagent";
+import { useSpring, animated } from "react-spring";
 import "../QuestionPage/QuestionPage.css"
 
 
@@ -25,6 +26,10 @@ function QuestionPage() {
         answerClicked: false,
     });
 
+
+    // State for holding the animation trigger
+    const [animateCorrectAnswer, setAnimateCorrectAnswer] = useState(false);
+
     // Function to shuffle answers for a question
     const shuffleAnswers = (correctAnswer, incorrectAnswers) => {
         const allAnswers = [...incorrectAnswers, correctAnswer];
@@ -40,8 +45,10 @@ function QuestionPage() {
 
         if (isCorrect) {
             console.log("Is correct", isCorrect)
+            setAnimateCorrectAnswer(true);
         } else {
             console.log("Is incorrect")
+            setAnimateCorrectAnswer(false);
             console.log("Correct answer:", state.currentQuestion.correct_answer);
         }
 
@@ -54,6 +61,7 @@ function QuestionPage() {
                 isCorrect,
                 answerClicked: true,
                 correctAnswer: state.currentQuestion.correct_answer,
+                isCorrectIndex: state.shuffledAnswers.indexOf(state.currentQuestion.correct_answer),
             }],
         }));
         // Handle selected answer logic here...
@@ -77,12 +85,12 @@ function QuestionPage() {
             console.log("User Answers:", state.userAnswers);
         } else {
             // // Pass accumulated user answers and questions to the next route
-            navigate("/stats", { 
+            navigate("/stats", {
                 state: {
-                userAnswers: accumulatedUserAnswers,
-                questions: state.questions, // Include questions in the route state
-            }, 
-        });
+                    userAnswers: accumulatedUserAnswers,
+                    questions: state.questions, // Include questions in the route state
+                },
+            });
         }
     };
 
@@ -130,6 +138,29 @@ function QuestionPage() {
         fetchData();
     }, [amount, difficulty, initialQuestions]);
 
+    useEffect(() => {
+        console.log("animateCorrectAnswer:", animateCorrectAnswer);
+        // Trigger the animation when the answerClicked state changes
+        if (state.answerClicked && state.userAnswers.length > state.questionIndex) {
+            setAnimateCorrectAnswer(true);
+
+            // Reset the animation trigger after a short delay
+            const timeoutId = setTimeout(() => {
+                setAnimateCorrectAnswer(false);
+            }, 1000); // Adjust the delay as needed
+            return () => clearTimeout(timeoutId);
+        }
+    }, [animateCorrectAnswer, state.answerClicked, state.questionIndex, state.userAnswers]);
+
+    const correctAnswerAnimation = useSpring({
+        boxShadow: animateCorrectAnswer
+            ? state.shuffledAnswers[state.userAnswers[state.questionIndex]?.isCorrectIndex] === state.currentQuestion.correct_answer
+                ? '0px 0px 20px 10px rgba(0, 255, 0, 0.8)' // Correct answer, green glow
+                : '0px 0px 20px 10px rgba(255, 0, 0, 0.8)' // Incorrect answer, red glow (you can customize this)
+            : '0px 0px 0px 0px rgba(0, 0, 0, 0)', // Initial state
+        config: { mass: 1, tension: 170, friction: 26, precision: 0.01 }
+    });
+
     // If no current question is available (during loading), display a loading message 
     if (!state.questions.length) {
         return <p>Loading...</p>;
@@ -138,16 +169,13 @@ function QuestionPage() {
     return (
         <>
             <div className="question-container">
-                {/* <h3>Question</h3> */}
-                {/* Presents question nicely without ugly representation of ' " */}
                 <h3 dangerouslySetInnerHTML={{ __html: state.currentQuestion.question }}></h3>
             </div>
             <div className="answer-container">
-                {/* Presents answers nicely without ugly representation of ' " */}
                 {state.shuffledAnswers.map((answer, index) => (
-                    <button
+                    <animated.button
                         key={index}
-                        onClick={() => handleAnswerClick(answer)}
+                        onClick={() => handleAnswerClick(answer, index)}
                         dangerouslySetInnerHTML={{ __html: answer }}
                         className={`btn ${state.userAnswers.length > state.questionIndex
                             ? answer === state.userAnswers[state.questionIndex].answer
@@ -155,22 +183,20 @@ function QuestionPage() {
                                     ? 'btn-success'
                                     : 'btn-danger'
                                 : 'btn-light'
-                            : 'btn-light'}`}
+                            : 'btn-light'
+                            }`}
                         disabled={
                             state.answerClicked ||
                             state.userAnswers.length > state.questionIndex
                         }
-                    ></button>
+                        style={index === state.userAnswers[state.questionIndex]?.isCorrectIndex ? correctAnswerAnimation : {}}
+                    ></animated.button>
                 ))}
-
-
             </div>
             <div className="next-question">
-            <button className="btn btn-light"
-                    onClick={handleNextQuestion}>
-                {/* When last question is reached Next Question button becomes Submit button */}
-                {state.questionIndex + 1 < state.questions.length ? "Next Question" : "Submit"}
-            </button>
+                <button className="btn btn-light" onClick={handleNextQuestion}>
+                    {state.questionIndex + 1 < state.questions.length ? "Next Question" : "Submit"}
+                </button>
             </div>
             <p className="question-counter">{state.questionIndex + 1} of {state.questions.length}</p>
         </>

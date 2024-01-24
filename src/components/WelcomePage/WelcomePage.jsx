@@ -52,7 +52,7 @@ function WelcomePage() {
   return (
     <>
       <div className="container">
-        <img src="https://i.imgur.com/DtHpruu.png" alt="MusIQ logo" />
+        <img className="logo" src="https://i.imgur.com/9pRqzsF.png" alt="MusIQ logo" />
         <div className="container1">
           <h2 className="header">Number of Questions</h2>
           <ul className="questions">

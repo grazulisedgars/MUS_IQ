@@ -32,7 +32,7 @@ button.btn.active {
 /* ------------------------------------------------------------ */
 
 /* Mobile view design */
-@media (min-width: 320px) and (max-width: 425px) {
+@media (min-width: 320px) and (max-width: 767px) {
 
 body {
     zoom: 0.7;
@@ -47,16 +47,23 @@ img {
     width: 75%;
 }
 
+.logo {
+    margin-top: 0;
+    margin-bottom: 0;
+    /* max-height: 100px; */
+    max-width: 50%;
+}
+
 .header {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     font-size: 2em;
-    padding-bottom: 40px;
+    padding-bottom: 0;
 }
 
 div {
-    padding-top: 10vw;
-    padding-bottom: 10vw;
+    padding-top: 0;
+    padding-bottom: 6vw;
 }
 
 /* Option button stats */
@@ -120,6 +127,11 @@ img {
     width: auto;
     height: auto; 
 
+}
+
+.logo {
+    margin-top: 0;
+    margin-bottom: 6vh;
 }
 
 .container1 {
