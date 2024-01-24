@@ -1,10 +1,8 @@
 # MusIQ
-​[Click to view deployed application](https://grazulisedgars.github.io/Go_Where/)
+​[Click to view deployed application](https://mus-iq.netlify.app/)
 
 ## Table of Contents
 
-- [Desktop View (Screenshots)](#desktop-screenshots)
-- [Mobile View (Screenshots)](#mobile-screenshots)
 - [User Story](#user-story)
 - [Acceptance Criteria](#acceptance-criteria)
 - [Built With](#built-with)
@@ -12,16 +10,9 @@
 - [Code Overview](#code-overview)
 - [Acknowledgments](#acknowledgments)
 - [License](#license)
+- [Desktop View (Screenshots)](#desktop-screenshots)
+- [Mobile View (Screenshots)](#mobile-screenshots)
 
-## Desktop Screenshots
-![Desktop View - Welcome Page](assets/images/Desktop-Welcome.png)
-![Desktop View - Questions](assets/images/Desktop-Questions.png)
-![Desktop View - Stats](assets/images/Desktop-Stats.png)
-
-## Mobile Screenshots
-![Mobile View - Welcome Page](assets/images/Mobile-Welcome.png)
-![Mobile View - Questions](assets/images/Mobile-Questions.png)
-![Mobile View - Stats](assets/images/Mobile-Stats.png)
 
  ### User Story
  **As a** music lover,
@@ -42,10 +33,12 @@ This project will be considered successful when:
 - HTML
 - CSS
 - JavaScript
-- jQuery
-- OTDB API
+- Open Trivia DataBase API
 - Bootstrap
 - Giphy API
+- Spotify Player
+- Superagent npm package
+- React-Spring npm package
 ​
 ### How to use
 1. Choose how many questions to answer in the quiz and the difficulty rating for the round.
@@ -60,21 +53,6 @@ This project will be considered successful when:
 ### Code Overview
 The site is predominantly built using REACT and JSX. The site consists of three pages, the first screen is the main selection screen, the second screen displays the trivia questions, and the third screen shows the user's quiz results.
 ​
-#### JavaScript
-##### destinations.js
-This file contains the data for the destinations that are displayed to the user.
-​
-##### script.js
-Contains the logic for transitioning between the two screens which constitute the site - the initial call to action and the display of our video selecton.
-​
-#### HTML
-##### index.html 
-Contains the HTML for the main selection screen and the second screen which displays the videos to the user.
-​
-#### CSS
-##### style.css
-Contains the styling for the site which overrides some of the default styling provided by Bootstrap.
-​
 ​
 ### Acknowledgments
 - [Edgars Grazulis](https://github.com/grazulisedgars)
@@ -84,8 +62,9 @@ Contains the styling for the site which overrides some of the default styling pr
 - [Open Trivia DB API](https://opentdb.com/api_config.php)
 - [Giphy API](https://developers.giphy.com/docs/api/)
 - [Bootstrap](https://getbootstrap.com/)
-- [jQuery](https://jquery.com/)
 - [Netlify](https://docs.netlify.com/)
+- [SuperAgent](https://www.npmjs.com/package/superagent)
+- [React Spring](https://www.npmjs.com/package/react-spring)
 
 ## License
 
@@ -110,3 +89,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Desktop Screenshots
+![Desktop View - Welcome Page](assets/images/Desktop-Welcome.png)
+![Desktop View - Questions](assets/images/Desktop-Questions.png)
+![Desktop View - Stats](assets/images/Desktop-Stats.png)
+
+## Mobile Screenshots
+![Mobile View - Welcome Page](assets/images/Mobile-Welcome.png)
+![Mobile View - Questions](assets/images/Mobile-Questions.png)
+![Mobile View - Stats](assets/images/Mobile-Stats.png)
