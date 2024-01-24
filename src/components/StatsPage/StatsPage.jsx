@@ -50,87 +50,90 @@ function StatsPage() {
 
     const gifSearchAnswer = (answers) => {
         for (let i = 0; i < answers.length; i++) {
-          const currentAnswer = answers[i];
-      
-          if (typeof currentAnswer === 'string') {
-            // The current answer is a string
-            console.log('String:', currentAnswer);
-            // Add your logic for handling a string answer here
-            break; // Exit the loop since we found a string answer
-          } else {
-            // The current answer is not a string (could be a number, boolean, etc.)
-            console.log('Not a string:', currentAnswer);
-            // Add your logic for handling a non-string answer here
-          }
-        }
-      };
+            const currentAnswer = answers[i];
 
-  useEffect(() => {
-    // Fetch the Giphy API when the component mounts
-    fetchGiphy(questions[0].correct_answer);
-    
-  }, []);
+            if (typeof currentAnswer === 'string') {
+                // The current answer is a string
+                console.log('String:', currentAnswer);
+                // Add your logic for handling a string answer here
+                break; // Exit the loop since we found a string answer
+            } else {
+                // The current answer is not a string (could be a number, boolean, etc.)
+                console.log('Not a string:', currentAnswer);
+                // Add your logic for handling a non-string answer here
+            }
+        }
+    };
+
+    useEffect(() => {
+        // Fetch the Giphy API when the component mounts
+        fetchGiphy(questions[0].correct_answer);
+
+    }, []);
 
     // GET Giphy API
     const fetchGiphy = async (q) => {
         try {
             // Constructing the API URL based on selected amount and difficulty
-            const apiUrl2 = `https://api.giphy.com/v1/gifs/search?api_key=${import.meta.env.VITE_API_KEY}&q=${q}&limit=1&offset=0&rating=pg&lang=en&bundle=messaging_non_clips`;
-            const response = await request.get(apiUrl2);
+            const apiUrl2 = `//api.giphy.com/v1/gifs/search?api_key=${import.meta.env.VITE_API_KEY}&q=${q}&limit=1&offset=0&rating=pg&lang=en&bundle=messaging_non_clips`;
+
+            const response = await request
+                .get(apiUrl2)
+                .set('authorization', import.meta.env.VITE_API_KEY);
             const data = response.body.data[0].images.fixed_height.url;
             console.log("Giphy results:", data);
 
             // Set the Giphy URL to the state
-      setGifUrl(data);
-        }catch (error) {
+            setGifUrl(data);
+        } catch (error) {
 
             // Handling errors during the quiz start process`
             console.error("Error generating gif:", error);
-          }
-        };
+        }
+    };
 
-        const percentage = calculatePercentage(correctlyAnswered.length, totalQuestions);
-        console.log(percentage);
+    const percentage = calculatePercentage(correctlyAnswered.length, totalQuestions);
+    console.log(percentage);
 
-        // Calculate formatted percentage with two decimal places
-        const formattedPercentage = parseFloat(percentage).toFixed(0);
+    // Calculate formatted percentage with two decimal places
+    const formattedPercentage = parseFloat(percentage).toFixed(0);
 
-        // Helper function to handle HTML entities
-        const renderHTML = (html) => {
-            return { __html: html };
-        };
+    // Helper function to handle HTML entities
+    const renderHTML = (html) => {
+        return { __html: html };
+    };
 
-        return (
-            <>
-                <img src={gifUrl} alt="Giphy" />
-                <h1 className="header-message">{getHeaderMessage(percentage)}</h1>
-                <div className="correct-answers-div">
-                    {/* Display stats for correctly answered questions */}
-                    <h2 className="correct-answers">{correctlyAnswered.length + '/' + questions.length + ' correct '} <br /> <br />{formattedPercentage + '%'}</h2>
-                </div>
-                <div className="stats-div">
-                    {/* Display details for incorrectly answered questions */}
-                    {incorrectlyAnswered.length > 0 && (
-                        <>
-                            <h3 className="stats-h3">Review and Learn:</h3>
-                            {incorrectlyAnswered.map((answer, index) => (
-                                <div className="corrections" key={index}>
-                                    <p dangerouslySetInnerHTML={renderHTML(`Question: ${answer.question}`)}></p>
-                                    <p dangerouslySetInnerHTML={renderHTML(`Your Answer: ${answer.answer}`)}
-                                        className="your-answer-p"></p>
-                                    <p dangerouslySetInnerHTML={renderHTML(`Correct Answer: ${getCorrectAnswer(index)}`)}
-                                        className="correct-answer-p"></p>
-                                </div>
-                            ))}
-                        </>
-                    )}
+    return (
+        <>
+            <img src={gifUrl} alt="Giphy" />
+            <h1 className="header-message">{getHeaderMessage(percentage)}</h1>
+            <div className="correct-answers-div">
+                {/* Display stats for correctly answered questions */}
+                <h2 className="correct-answers">{correctlyAnswered.length + '/' + questions.length + ' correct '} <br /> <br />{formattedPercentage + '%'}</h2>
+            </div>
+            <div className="stats-div">
+                {/* Display details for incorrectly answered questions */}
+                {incorrectlyAnswered.length > 0 && (
+                    <>
+                        <h3 className="stats-h3">Review and Learn:</h3>
+                        {incorrectlyAnswered.map((answer, index) => (
+                            <div className="corrections" key={index}>
+                                <p dangerouslySetInnerHTML={renderHTML(`Question: ${answer.question}`)}></p>
+                                <p dangerouslySetInnerHTML={renderHTML(`Your Answer: ${answer.answer}`)}
+                                    className="your-answer-p"></p>
+                                <p dangerouslySetInnerHTML={renderHTML(`Correct Answer: ${getCorrectAnswer(index)}`)}
+                                    className="correct-answer-p"></p>
+                            </div>
+                        ))}
+                    </>
+                )}
 
-                </div>
-                <NavLink to="/">
-                    <button className="btn btn-light play-again">Play Again</button>
-                </NavLink>
-            </>
-        );
-    }
+            </div>
+            <NavLink to="/">
+                <button className="btn btn-light play-again">Play Again</button>
+            </NavLink>
+        </>
+    );
+}
 
-    export default StatsPage;
+export default StatsPage;

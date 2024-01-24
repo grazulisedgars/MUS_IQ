@@ -1,7 +1,7 @@
 import request from 'superagent';
 
 
-const API_BASE_URL = 'https://opentdb.com/api.php'
+const API_BASE_URL = '//opentdb.com/api.php'
 
 export const getTriviaQuestions = async (amount, difficulty) => {
   try {
@@ -20,7 +20,7 @@ export const getTriviaQuestions = async (amount, difficulty) => {
   }
 };
 
-const API_BASE_URL_2 = 'https://api.giphy.com/v1/gifs'
+const API_BASE_URL_2 = '//api.giphy.com/v1/gifs'
 export const getGiphy = async (answer) => {
   try {
     const response = await request
