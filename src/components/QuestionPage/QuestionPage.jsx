@@ -106,7 +106,7 @@ function QuestionPage() {
                 } else {
                     // Otherwise, fetch questions from the API
                     const response = await request
-                        .get("https://opentdb.com/api.php")
+                        .get("https://www.otriviata.com/api.php?")
                         .query({ amount, category: 12, difficulty });
                     data = response.body.results;
                 }

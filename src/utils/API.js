@@ -1,7 +1,7 @@
 import request from 'superagent';
 
 
-const API_BASE_URL = '//opentdb.com/api.php'
+const API_BASE_URL = 'https://www.otriviata.com/api.php?'
 
 export const getTriviaQuestions = async (amount, difficulty) => {
   try {
